@@ -1,6 +1,6 @@
 <div align="center">
 
-<img src="ui/logo-animated.svg" alt="OpenBot" width="128" height="128"/>
+<img src="ui/logo-animated.svg?v=2" alt="OpenBot" width="128" height="128"/>
 
 # **OpenBot**
 
