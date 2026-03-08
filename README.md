@@ -1,306 +1,249 @@
 <div align="center">
-  <img src="ui/logo.svg" alt="OpenBot" width="100" height="100"/>
-  <h1>OpenBot</h1>
-  <p><strong>Your personal AI assistant. Self-hosted. Any platform. Any model.</strong></p>
 
-  [![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
-  [![License](https://img.shields.io/badge/License-MIT-a78bfa)](LICENSE)
-  [![Skills](https://img.shields.io/badge/Skills-57-10b981)](skills/)
-  [![Channels](https://img.shields.io/badge/Channels-22-2563eb)](gateway/channels/)
-  [![Providers](https://img.shields.io/badge/AI%20Providers-28-7c3aed)](gateway/ai-router.js)
-  [![Platforms](https://img.shields.io/badge/Platforms-macOS%20%7C%20Linux%20%7C%20Windows-8b949e)](install.sh)
+<img src="ui/logo-animated.svg" alt="OpenBot" width="128" height="128"/>
+
+# **OpenBot**
+
+### *Enterprise-Grade AI. Your Infrastructure. Your Control.*
+
+**The self-hosted AI agent platform for teams who demand privacy, flexibility, and scale.**
+
+[![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
+[![License](https://img.shields.io/badge/License-MIT-8b5cf6)](LICENSE)
+[![Skills](https://img.shields.io/badge/Skills-57-10b981)](skills/)
+[![Channels](https://img.shields.io/badge/Channels-22-2563eb)](gateway/channels/)
+[![AI Providers](https://img.shields.io/badge/AI%20Providers-28-7c3aed)](gateway/ai-router.js)
+[![Platforms](https://img.shields.io/badge/Platforms-macOS%20%7C%20Linux%20%7C%20Windows-64748b)](install.sh)
+
+---
+
+[Quick Start](#-quick-start) •
+[Features](#-features) •
+[Architecture](#-architecture) •
+[Deployment](#-deployment) •
+[Documentation](#-configuration--documentation)
+
 </div>
 
 ---
 
-**Your personal AI assistant. Self-hosted. Any platform. Any model.**
+## Overview
 
-OpenBot is a fully self-hosted AI agent you run on your own machine or server. Chat through a web browser, Telegram, Discord, WhatsApp, or 19 other messaging platforms — all powered by the AI model of your choice.
+**OpenBot** is a fully self-hosted AI agent platform that runs on your own infrastructure. One deployment powers a unified AI experience across **web**, **mobile**, and **22 messaging channels**—Telegram, Discord, Slack, WhatsApp, and more—with a single gateway and the AI model of your choice.
+
+- **Data sovereignty** — Conversations and models stay on your servers. No third-party data pipelines.
+- **Multi-provider** — 28 AI providers (Anthropic, OpenAI, OpenRouter, Ollama, Groq, DeepSeek, and others). Swap models without changing code.
+- **Extensible** — 57 built-in skills (web search, code, files, calendar, email, browser automation, and more). Add custom skills and agents in plain text.
+
+Built for developers and teams who need a production-ready, vendor-neutral AI layer.
 
 ---
 
-## Quick Start (2 minutes)
+## Quick Start
 
 **Requirements:** Node.js 20+
 
 ```bash
-# 1. Install dependencies
+# Clone and install
+git clone https://github.com/openbot/openbot.git && cd openbot
 npm install
 
-# 2. Add your API key (.env.example has all options)
+# Configure (add your API key)
 cp .env.example .env
-# Open .env and add:  ANTHROPIC_API_KEY=sk-ant-...
+# Edit .env: ANTHROPIC_API_KEY=sk-ant-... (or OPENAI_API_KEY, OLLAMA_URL, etc.)
 
-# 3. Start the gateway
+# Start the gateway
 npm start
-
-# 4. Open the dashboard
-# http://localhost:18789
 ```
 
-That's it. The web UI opens at `http://localhost:18789`.
+Open **http://localhost:18789** for the web dashboard. You’re ready.
 
----
+<details>
+<summary><b>Get an API key</b></summary>
 
-## Getting an API Key
+| Provider | Get key | Notes |
+|----------|---------|--------|
+| **Anthropic Claude** | [console.anthropic.com](https://console.anthropic.com) | Recommended |
+| **OpenAI** | [platform.openai.com](https://platform.openai.com) | GPT-4o and more |
+| **DeepSeek** | [platform.deepseek.com](https://platform.deepseek.com) | Cost-effective |
+| **OpenRouter** | [openrouter.ai/keys](https://openrouter.ai/keys) | 200+ models |
+| **Ollama** | [ollama.ai](https://ollama.ai) | Local, no key |
+| **Groq** | [console.groq.com](https://console.groq.com) | Free tier |
 
-OpenBot works with **28 AI providers**. Pick one:
+Set in `.env`: `ANTHROPIC_API_KEY=sk-ant-...` (or the provider you use).
 
-| Provider | Get Key | Cost |
-|---|---|---|
-| **Anthropic Claude** (recommended) | [console.anthropic.com](https://console.anthropic.com) | Pay per use |
-| **OpenAI GPT-4o** | [platform.openai.com](https://platform.openai.com) | Pay per use |
-| **DeepSeek** | [platform.deepseek.com](https://platform.deepseek.com) | Very cheap |
-| **OpenRouter** (200+ models) | [openrouter.ai/keys](https://openrouter.ai/keys) | Pay per use |
-| **Ollama** (local, free) | [ollama.ai](https://ollama.ai) | Free forever |
-| **Groq** (fast, free tier) | [console.groq.com](https://console.groq.com) | Free tier |
-
-Set the key in `.env`:
-```bash
-ANTHROPIC_API_KEY=sk-ant-your-key-here
-# or
-OPENAI_API_KEY=sk-your-key-here
-# or
-OLLAMA_URL=http://localhost:11434   # no key needed
-```
+</details>
 
 ---
 
 ## Features
 
-### 57 Built-in Skills
-| Category | Skills |
-|---|---|
-| Web | `web-search`, `browser`, `http`, `rss`, `firecrawl` |
-| Files | `file`, `pdf`, `zip`, `markdown`, `json`, `base64` |
-| Code | `shell`, `git`, `github`, `docker`, `database`, `code_review` |
-| Media | `image`, `voice`, `screenshot`, `ocr`, `qr-code` |
-| Info | `weather`, `news`, `stocks`, `crypto`, `translate` |
-| Tools | `calendar`, `email`, `reminders`, `notes`, `memory` |
-| System | `system`, `ping`, `dns`, `port-scan`, `ssl-check` |
-| AI | `llm-task`, `summarize`, `canvas` |
+### 57 built-in skills
 
-### 22 Messaging Channels
-Telegram · Discord · Slack · WhatsApp · Signal · iMessage · Matrix · Microsoft Teams · Google Chat · LINE · Mattermost · IRC · WeChat · Feishu · Zalo · Nostr · Synology Chat · Twitch · Nextcloud Talk · Outlook · Gmail PubSub · Web UI
+| Category | Examples |
+|----------|----------|
+| **Web** | `web-search`, `browser`, `http`, `rss`, `firecrawl` |
+| **Files** | `file`, `pdf`, `zip`, `markdown`, `json`, `base64` |
+| **Code** | `shell`, `git`, `github`, `docker`, `database`, `code_review` |
+| **Media** | `image`, `voice`, `screenshot`, `ocr`, `qr-code` |
+| **Info** | `weather`, `news`, `stocks`, `crypto`, `translate` |
+| **Productivity** | `calendar`, `email`, `reminders`, `notes`, `memory` |
+| **Infrastructure** | `system`, `ping`, `dns`, `port-scan`, `ssl-check` |
+| **AI** | `llm-task`, `summarize`, `canvas` |
 
-### 5 Agents (from AGENTS.md)
-- `@default` — General assistant
-- `@coder` — Software engineering specialist
-- `@researcher` — Deep research and analysis
-- `@creative` — Writing and creative tasks
-- `@devops` — Infrastructure and operations
+### 22 messaging channels
 
----
+Telegram · Discord · Slack · WhatsApp · Signal · iMessage · Matrix · Microsoft Teams · Google Chat · LINE · Mattermost · IRC · WeChat · Feishu · Zalo · Nostr · Synology Chat · Twitch · Nextcloud Talk · Outlook · Gmail PubSub · **Web UI**
 
-## Configuration
+### Multiple agents (from `AGENTS.md`)
 
-All configuration lives in two places:
+| Agent | Role |
+|-------|------|
+| `@default` | General assistant |
+| `@coder` | Software development & debugging |
+| `@researcher` | Deep research & synthesis |
+| `@creative` | Writing, design, brainstorming |
+| `@devops` | Infrastructure & operations |
 
-**`.env`** — API keys and secrets (never commit this file)
-```bash
-cp .env.example .env
-# Edit .env with your keys
-```
-
-**`openbot.json`** — Gateway behavior (safe to commit)
-```json5
-{
-  "model": "claude-sonnet-4-6",
-  "port": 18789,
-  "tools": { "exec": { "security": "deny" } }
-}
-```
-
-**`SOUL.md`** — Agent personality
-```markdown
----
-name: OpenBot
-personality: helpful, concise
----
-You are a helpful AI assistant...
-```
-
-**`AGENTS.md`** — Define multiple agents
-```markdown
-## @coder
-model: claude-opus-4-5
-skills: [shell, git, github, file, web-search]
-```
+Define your own agents with model and skill sets in a single markdown file.
 
 ---
 
-## Messaging Channels
+## Architecture
 
-Add your tokens to `.env` and they start automatically:
-
-**Telegram:**
-```bash
-TELEGRAM_BOT_TOKEN=your_bot_token
-# Get from @BotFather on Telegram
+```
+┌─────────────────────────────────────────────────────────────────┐
+│                        OpenBot Gateway                           │
+│  (Express + WebSocket · AI router · Skills · Memory · Sessions)  │
+└─────────────────────────────────────────────────────────────────┘
+     │                    │                    │
+     ▼                    ▼                    ▼
+┌──────────┐      ┌──────────────┐      ┌─────────────┐
+│ Web UI   │      │ 22 Channels   │      │ Mobile App  │
+│ :18789   │      │ (Telegram,…)  │      │ (Expo)      │
+└──────────┘      └──────────────┘      └─────────────┘
+     │                    │                    │
+     └────────────────────┼────────────────────┘
+                          ▼
+              ┌───────────────────────┐
+              │  28 AI Providers      │
+              │  (Anthropic, OpenAI,  │
+              │   OpenRouter, Ollama…)│
+              └───────────────────────┘
 ```
 
-**Discord:**
-```bash
-DISCORD_BOT_TOKEN=your_bot_token
-# Create at discord.com/developers
-```
-
-**WhatsApp:**
-```bash
-# No token needed — scan QR code on first run
-# Check the Channels panel at http://localhost:18789
-```
-
-**Slack:**
-```bash
-SLACK_BOT_TOKEN=xoxb-your-token
-SLACK_SIGNING_SECRET=your_signing_secret
-SLACK_APP_TOKEN=xapp-your-app-token
-```
+| Component | Description |
+|-----------|-------------|
+| **gateway/** | Core server, AI router, skill engine, memory, session manager, channel adapters |
+| **skills/** | 57 built-in skills (tools the agent can call) |
+| **cli/** | `openbot` CLI: onboard, doctor, agents, memory, daemon, cron, gateway |
+| **ui/** | Web dashboard (single-page app served at `/`) |
+| **mobile/** | React Native (Expo) app connecting to your gateway |
 
 ---
 
-## CLI
+## Configuration & documentation
+
+| File | Purpose |
+|------|---------|
+| **`.env`** | API keys and secrets (do not commit) |
+| **`openbot.json`** | Gateway config: model, port, tool security |
+| **`SOUL.md`** | Agent personality and system prompt |
+| **`AGENTS.md`** | Multiple agents: model and skills per agent |
+
+**CLI overview:**
 
 ```bash
-# Interactive setup wizard
-openbot onboard
-
-# Check everything is configured correctly
-openbot doctor
-
-# Manage agents
-openbot agent list
-openbot agent create
-
-# Memory management
-openbot memory search "python"
-openbot memory add "My name is John"
-
-# Run as background daemon
-openbot daemon start
-openbot daemon status
-openbot daemon stop
-
-# Manage cron jobs
-openbot cron list
-openbot cron add "0 9 * * *" "Give me a morning briefing"
-
-# Gateway controls
-openbot gateway start
-openbot gateway status
-
-# See all commands
-openbot --help
+openbot onboard          # Interactive setup
+openbot doctor           # Diagnose configuration
+openbot agent list       # List agents
+openbot memory search "…"  # Search agent memory
+openbot daemon start     # Run as background service
+openbot cron list       # Scheduled tasks
+openbot --help          # All commands
 ```
 
 ---
 
-## Directory Structure
+## Deployment
 
-```
-openbot/
-├── gateway/          # Core server (Express + WebSocket)
-│   ├── server.js     # Main gateway entry point
-│   ├── ai-router.js  # Routes to 28 AI providers
-│   ├── skill-engine.js
-│   ├── memory-manager.js
-│   ├── session-manager.js
-│   ├── channels/     # 22 messaging integrations
-│   └── routes/       # REST API routes
-├── skills/           # 57 built-in skills
-├── agents/           # Agent definition files
-├── cli/              # Command-line interface
-│   └── commands/     # 28+ CLI commands
-├── ui/               # Web dashboard (served at /)
-├── mobile/           # React Native mobile app (Expo)
-├── SOUL.md           # Agent personality
-├── AGENTS.md         # Agent definitions
-├── openbot.json      # Gateway configuration
-└── .env              # Your API keys (never commit)
-```
+**PM2 (recommended for servers):**
 
----
-
-## Running in Production
-
-**With PM2:**
 ```bash
 npm install -g pm2
 pm2 start gateway/server.js --name openbot
-pm2 save
-pm2 startup
+pm2 save && pm2 startup
 ```
 
-**As a system daemon:**
+**System service (launchd / systemd / Task Scheduler):**
+
 ```bash
-openbot daemon install   # installs as launchd / systemd / Task Scheduler
+openbot daemon install
 openbot daemon start
 ```
 
-**With Docker:**
+**Docker:**
+
 ```bash
 docker-compose up -d
 ```
 
-**On Cloudflare Workers:**
+**Cloudflare Workers:**
+
 ```bash
 cp wrangler.toml.example wrangler.toml
-# Edit wrangler.toml with your account ID
+# Set account ID and secrets, then:
 wrangler deploy
 ```
 
 ---
 
-## Troubleshooting
+## Messaging channels (setup)
 
-**Chat returns "API key not configured"**
-```bash
-# Make sure .env has a key:
-cat .env | grep API_KEY
+Add the corresponding variables to `.env`; the gateway enables each channel automatically.
 
-# Then restart:
-npm start
-```
-
-**Port 18789 already in use**
-```bash
-# Use a different port:
-GATEWAY_PORT=3001 npm start
-# or in openbot.json: "port": 3001
-```
-
-**Skills not loading**
-```bash
-openbot doctor        # diagnoses common issues
-openbot skills list   # shows all loaded skills
-```
-
-**WebSocket disconnects**
-The UI auto-reconnects. If persistent, check your firewall or reverse proxy settings (enable WebSocket upgrade).
+| Channel | `.env` variable |
+|---------|------------------|
+| Telegram | `TELEGRAM_BOT_TOKEN` (from [@BotFather](https://t.me/BotFather)) |
+| Discord | `DISCORD_BOT_TOKEN` ([discord.com/developers](https://discord.com/developers)) |
+| Slack | `SLACK_BOT_TOKEN`, `SLACK_SIGNING_SECRET`, `SLACK_APP_TOKEN` |
+| WhatsApp | No token — scan QR in dashboard on first run |
 
 ---
 
-## Mobile App
+## Mobile app
 
-The mobile app (React Native / Expo) connects to your self-hosted gateway.
+The React Native (Expo) app talks to your self-hosted gateway.
 
 ```bash
-cd mobile
-npm install
-npx expo start
+cd mobile && npm install && npx expo start
 ```
 
-Set your gateway URL in the app's Settings screen: `http://your-server-ip:18789`
+Set the gateway URL in the app (e.g. `http://your-server:18789`).
+
+---
+
+## Troubleshooting
+
+| Issue | Action |
+|-------|--------|
+| "API key not configured" | Ensure `.env` has a key (`ANTHROPIC_API_KEY`, `OPENAI_API_KEY`, etc.) and restart. |
+| Port 18789 in use | Set `GATEWAY_PORT=3001` or `"port": 3001` in `openbot.json`. |
+| Skills not loading | Run `openbot doctor` and `openbot skills list`. |
+| WebSocket drops | Check firewall/reverse proxy; ensure WebSocket upgrade is allowed. |
 
 ---
 
 ## License
 
-MIT — use it, fork it, build on it.
+**MIT** — use, modify, and distribute with minimal restrictions.
 
 ---
 
-## Acknowledgements
+<div align="center">
 
-Built with: Node.js · Express · Anthropic SDK · OpenAI SDK · Discord.js · node-telegram-bot-api · whatsapp-web.js · Expo
+**OpenBot** — *Your infrastructure. Your AI. Your rules.*
+
+Built with Node.js · Express · Anthropic SDK · OpenAI SDK · Discord.js · node-telegram-bot-api · whatsapp-web.js · Expo
+
+</div>
