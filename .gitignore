@@ -1,0 +1,16 @@
+node_modules/
+.env
+dist/
+*.log
+
+# Local data (stored in ~/.openbot/ instead)
+.openbot/
+
+# OS files
+.DS_Store
+Thumbs.db
+
+# IDE
+.vscode/
+.idea/
+*.swp

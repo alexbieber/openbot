@@ -1,0 +1,80 @@
+{
+  "name": "openbot",
+  "version": "1.0.0",
+  "description": "Your own personal AI agent. Any OS. Any platform.",
+  "type": "module",
+  "main": "gateway/server.js",
+  "bin": {
+    "openbot": "./cli/index.js"
+  },
+  "scripts": {
+    "start": "node gateway/server.js",
+    "dev": "node --watch gateway/server.js",
+    "onboard": "node cli/index.js onboard",
+    "test": "node --test tests/**/*.test.js",
+    "lint": "eslint .",
+    "deploy:cf": "wrangler deploy",
+    "cf:dev": "wrangler dev cloudflare/worker.js --local"
+  },
+  "keywords": [
+    "ai",
+    "agent",
+    "assistant",
+    "openbot",
+    "llm",
+    "telegram",
+    "discord"
+  ],
+  "author": "OpenBot Contributors",
+  "homepage": "https://github.com/openbot/openbot#readme",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/openbot/openbot.git"
+  },
+  "bugs": {
+    "url": "https://github.com/openbot/openbot/issues"
+  },
+  "license": "MIT",
+  "engines": {
+    "node": ">=20.0.0"
+  },
+  "dependencies": {
+    "@anthropic-ai/sdk": "^0.27.0",
+    "keytar": "^7.9.0",
+    "@line/bot-sdk": "^9.3.0",
+    "@slack/bolt": "^3.21.1",
+    "archiver": "^7.0.1",
+    "axios": "^1.7.2",
+    "better-sqlite3": "^11.1.2",
+    "botbuilder": "^4.23.0",
+    "chalk": "^5.3.0",
+    "commander": "^12.1.0",
+    "discord.js": "^14.15.3",
+    "dotenv": "^16.4.5",
+    "express": "^4.19.2",
+    "form-data": "^4.0.0",
+    "fs-extra": "^11.2.0",
+    "glob": "^11.0.0",
+    "gray-matter": "^4.0.3",
+    "inquirer": "^10.1.8",
+    "json5": "^2.2.3",
+    "jsonwebtoken": "^9.0.2",
+    "marked": "^13.0.0",
+    "matrix-js-sdk": "^34.0.0",
+    "multer": "^1.4.5-lts.1",
+    "node-cron": "^3.0.3",
+    "node-telegram-bot-api": "^0.66.0",
+    "openai": "^4.52.0",
+    "ora": "^8.1.0",
+    "pdf-parse": "^1.1.1",
+    "pdfkit": "^0.15.0",
+    "qrcode-terminal": "^0.12.0",
+    "unzipper": "^0.12.3",
+    "uuid": "^10.0.0",
+    "whatsapp-web.js": "^1.23.0",
+    "ws": "^8.18.0"
+  },
+  "devDependencies": {
+    "eslint": "^9.7.0"
+  }
+}

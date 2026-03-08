@@ -1,0 +1,44 @@
+# Cloudflare Workers deploy configuration for OpenBot Gateway
+# Deploy: npm run deploy:cf
+# Dashboard: https://dash.cloudflare.com/
+
+name = "openbot-gateway"
+main = "cloudflare/worker.js"
+compatibility_date = "2024-09-01"
+compatibility_flags = ["nodejs_compat"]
+
+# Account ID from: https://dash.cloudflare.com/ → right sidebar
+# account_id = "your-cloudflare-account-id"
+
+# ── KV Namespaces (sessions, memory) ──────────────────────────────────────────
+[[kv_namespaces]]
+binding = "SESSIONS"
+id = "replace-with-your-kv-id"
+# Create with: npx wrangler kv:namespace create SESSIONS
+
+[[kv_namespaces]]
+binding = "MEMORY"
+id = "replace-with-your-memory-kv-id"
+# Create with: npx wrangler kv:namespace create MEMORY
+
+# ── Durable Objects (WebSocket connections) ───────────────────────────────────
+[[durable_objects.bindings]]
+name = "CONNECTIONS"
+class_name = "ConnectionManager"
+
+[[migrations]]
+tag = "v1"
+new_classes = ["ConnectionManager"]
+
+# ── Environment Variables (set secrets with: npx wrangler secret put KEY) ──────
+[vars]
+OPENBOT_VERSION = "1.0.0"
+OPENBOT_ENV = "production"
+# Set these as secrets, never in vars:
+# ANTHROPIC_API_KEY, OPENAI_API_KEY, TELEGRAM_TOKEN, DISCORD_TOKEN, etc.
+
+# ── Routes ────────────────────────────────────────────────────────────────────
+# Uncomment and customize for custom domain:
+# routes = [
+#   { pattern = "bot.yourdomain.com/*", zone_name = "yourdomain.com" }
+# ]

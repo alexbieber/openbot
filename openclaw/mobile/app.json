@@ -1,0 +1,73 @@
+{
+  "expo": {
+    "name": "OpenBot",
+    "slug": "openbot-mobile",
+    "version": "1.0.0",
+    "orientation": "portrait",
+    "icon": "./assets/icon.png",
+    "userInterfaceStyle": "automatic",
+    "scheme": "openbot",
+    "splash": {
+      "image": "./assets/icon.png",
+      "resizeMode": "contain",
+      "backgroundColor": "#0f172a"
+    },
+    "assetBundlePatterns": ["**/*"],
+    "ios": {
+      "supportsTablet": true,
+      "bundleIdentifier": "ai.openbot.mobile",
+      "buildNumber": "1",
+      "infoPlist": {
+        "NSCameraUsageDescription": "OpenBot uses the camera to analyze images and share them with AI.",
+        "NSMicrophoneUsageDescription": "OpenBot uses the microphone for voice messages and wake word detection.",
+        "NSLocationWhenInUseUsageDescription": "OpenBot can include your location in messages.",
+        "NSPhotoLibraryUsageDescription": "OpenBot can access photos to share with AI.",
+        "NSLocalNetworkUsageDescription": "OpenBot connects to your local OpenBot gateway server."
+      }
+    },
+    "android": {
+      "adaptiveIcon": {
+        "foregroundImage": "./assets/adaptive-icon.png",
+        "backgroundColor": "#0f172a"
+      },
+      "package": "ai.openbot.mobile",
+      "versionCode": 1,
+      "permissions": [
+        "CAMERA",
+        "READ_EXTERNAL_STORAGE",
+        "WRITE_EXTERNAL_STORAGE",
+        "RECORD_AUDIO",
+        "ACCESS_FINE_LOCATION",
+        "ACCESS_COARSE_LOCATION",
+        "VIBRATE",
+        "RECEIVE_BOOT_COMPLETED"
+      ]
+    },
+    "web": {
+      "favicon": "./assets/favicon.png",
+      "bundler": "metro"
+    },
+    "plugins": [
+      "expo-router",
+      "expo-font",
+      [
+        "expo-notifications",
+        {
+          "icon": "./assets/notification-icon.png",
+          "color": "#6366f1"
+        }
+      ],
+      [
+        "expo-camera",
+        { "cameraPermission": "OpenBot uses the camera to analyze images." }
+      ],
+      [
+        "expo-location",
+        { "locationWhenInUsePermission": "OpenBot can share your location." }
+      ]
+    ],
+    "experiments": {
+      "typedRoutes": true
+    }
+  }
+}

@@ -1,0 +1,168 @@
+version: '3.9'
+
+services:
+  gateway:
+    build: .
+    container_name: openbot-gateway
+    restart: unless-stopped
+    ports:
+      - "18789:18789"
+    environment:
+      - ANTHROPIC_API_KEY=${ANTHROPIC_API_KEY}
+      - OPENAI_API_KEY=${OPENAI_API_KEY}
+      - DEEPSEEK_API_KEY=${DEEPSEEK_API_KEY}
+      - OPENROUTER_API_KEY=${OPENROUTER_API_KEY}
+      - KIMI_API_KEY=${KIMI_API_KEY}
+      - GLM_API_KEY=${GLM_API_KEY}
+      - MINIMAX_API_KEY=${MINIMAX_API_KEY}
+      - OPENBOT_MODEL=${OPENBOT_MODEL:-claude-sonnet-4-6}
+      - BRAVE_SEARCH_API_KEY=${BRAVE_SEARCH_API_KEY}
+      - VOYAGE_API_KEY=${VOYAGE_API_KEY}
+      - VIRUSTOTAL_API_KEY=${VIRUSTOTAL_API_KEY}
+      - ELEVENLABS_API_KEY=${ELEVENLABS_API_KEY}
+      - GITHUB_TOKEN=${GITHUB_TOKEN}
+      - GMAIL_CLIENT_ID=${GMAIL_CLIENT_ID}
+      - GMAIL_CLIENT_SECRET=${GMAIL_CLIENT_SECRET}
+      - GMAIL_REFRESH_TOKEN=${GMAIL_REFRESH_TOKEN}
+      - GOOGLE_CLIENT_ID=${GOOGLE_CLIENT_ID}
+      - GOOGLE_CLIENT_SECRET=${GOOGLE_CLIENT_SECRET}
+      - GOOGLE_REFRESH_TOKEN=${GOOGLE_REFRESH_TOKEN}
+    volumes:
+      - openbot-data:/root/.openbot
+      - ./agents:/app/agents
+      - ./skills:/app/skills
+      - ./ui:/app/ui
+    healthcheck:
+      test: ["CMD", "node", "-e", "fetch('http://localhost:18789/health').then(r=>r.ok?process.exit(0):process.exit(1)).catch(()=>process.exit(1))"]
+      interval: 30s
+      timeout: 10s
+      retries: 3
+
+  telegram:
+    build: .
+    container_name: openbot-telegram
+    restart: unless-stopped
+    command: node gateway/channels/telegram.js
+    environment:
+      - TELEGRAM_BOT_TOKEN=${TELEGRAM_BOT_TOKEN}
+      - GATEWAY_URL=ws://gateway:18789
+      - AGENT_ID=default
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["telegram"]
+
+  discord:
+    build: .
+    container_name: openbot-discord
+    restart: unless-stopped
+    command: node gateway/channels/discord.js
+    environment:
+      - DISCORD_BOT_TOKEN=${DISCORD_BOT_TOKEN}
+      - GATEWAY_URL=ws://gateway:18789
+      - AGENT_ID=default
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["discord"]
+
+  whatsapp:
+    build: .
+    container_name: openbot-whatsapp
+    restart: unless-stopped
+    command: node gateway/channels/whatsapp.js
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - AGENT_ID=default
+      - WHATSAPP_ALLOWED_NUMBER=${WHATSAPP_ALLOWED_NUMBER}
+    volumes:
+      - openbot-data:/root/.openbot
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["whatsapp"]
+
+  matrix:
+    build: .
+    container_name: openbot-matrix
+    restart: unless-stopped
+    command: node gateway/channels/matrix.js
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - MATRIX_HOMESERVER=${MATRIX_HOMESERVER:-https://matrix.org}
+      - MATRIX_ACCESS_TOKEN=${MATRIX_ACCESS_TOKEN}
+      - MATRIX_USER_ID=${MATRIX_USER_ID}
+      - AGENT_ID=default
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["matrix"]
+
+  teams:
+    build: .
+    container_name: openbot-teams
+    restart: unless-stopped
+    command: node gateway/channels/teams.js
+    ports:
+      - "3978:3978"
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - TEAMS_APP_ID=${TEAMS_APP_ID}
+      - TEAMS_APP_PASSWORD=${TEAMS_APP_PASSWORD}
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["teams"]
+
+  signal:
+    build: .
+    container_name: openbot-signal
+    restart: unless-stopped
+    command: node gateway/channels/signal.js
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - SIGNAL_NUMBER=${SIGNAL_NUMBER}
+      - SIGNAL_API_URL=${SIGNAL_API_URL:-http://host.docker.internal:8080}
+      - SIGNAL_PORT=8092
+    ports:
+      - "8092:8092"
+    depends_on:
+      - gateway
+    profiles:
+      - signal
+
+  imessage:
+    build: .
+    container_name: openbot-imessage
+    restart: unless-stopped
+    command: node gateway/channels/imessage.js
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - BLUEBUBBLES_URL=${BLUEBUBBLES_URL}
+      - BLUEBUBBLES_PASSWORD=${BLUEBUBBLES_PASSWORD}
+      - IMESSAGE_PORT=8093
+    ports:
+      - "8093:8093"
+    depends_on:
+      - gateway
+    profiles:
+      - imessage
+
+  line:
+    build: .
+    container_name: openbot-line
+    restart: unless-stopped
+    command: node gateway/channels/line.js
+    ports:
+      - "8091:8091"
+    environment:
+      - GATEWAY_URL=ws://gateway:18789
+      - LINE_CHANNEL_ACCESS_TOKEN=${LINE_CHANNEL_ACCESS_TOKEN}
+      - LINE_CHANNEL_SECRET=${LINE_CHANNEL_SECRET}
+    depends_on:
+      gateway:
+        condition: service_healthy
+    profiles: ["line"]
+
+volumes:
+  openbot-data:
