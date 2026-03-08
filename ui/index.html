@@ -401,7 +401,7 @@
   <!-- ── Sidebar (Grok-style: collapsed by default) ───────────────── -->
   <aside class="sidebar collapsed" id="sidebar">
     <a href="#" class="logo" onclick="switchPanel('chat',document.querySelector('[data-panel=chat]'));return false" style="text-decoration:none;cursor:pointer">
-      <img src="/logo.svg" alt="OpenBot" width="28" height="28" style="border-radius:6px;flex-shrink:0"/>
+      <img src="/logo-animated.svg" alt="OpenBot" width="28" height="28" style="border-radius:6px;flex-shrink:0"/>
       <div class="logo-text"><span>OpenBot</span></div>
     </a>
     <nav class="nav">
@@ -888,7 +888,7 @@ function appendMessage(role, content, toolsUsed) {
   div.className = 'message ' + role;
   const avatarHtml = role === 'user'
     ? '<div class="avatar">U</div>'
-    : '<div class="avatar"><img src="/logo.svg" alt="OpenBot"/></div>';
+    : '<div class="avatar"><img src="/logo-animated.svg" alt="OpenBot"/></div>';
   const initials = 'U'; // only used for user fallback below
   let tools = '';
   if (toolsUsed?.length) {
@@ -907,7 +907,7 @@ function startStreamingMessage() {
   const msgs = document.getElementById('messages');
   const div = document.createElement('div');
   div.className = 'message bot';
-  div.innerHTML = `<div class="avatar"><img src="/logo.svg" alt="OpenBot"/></div><div><div class="bubble stream-bubble"></div></div>`;
+  div.innerHTML = `<div class="avatar"><img src="/logo-animated.svg" alt="OpenBot"/></div><div><div class="bubble stream-bubble"></div></div>`;
   msgs.appendChild(div);
   streamingEl = div.querySelector('.stream-bubble');
   streamingContent = '';
@@ -942,7 +942,7 @@ function setTyping(show) {
   const msgs = document.getElementById('messages');
   const div = document.createElement('div');
   div.className = 'message bot typing-msg';
-  div.innerHTML = `<div class="avatar"><img src="/logo.svg" alt="OpenBot"/></div><div class="bubble typing-indicator"><span></span><span></span><span></span></div>`;
+  div.innerHTML = `<div class="avatar"><img src="/logo-animated.svg" alt="OpenBot"/></div><div class="bubble typing-indicator"><span></span><span></span><span></span></div>`;
   msgs.appendChild(div);
   msgs.scrollTop = msgs.scrollHeight;
 }
