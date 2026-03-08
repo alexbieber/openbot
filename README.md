@@ -58,6 +58,64 @@ How OpenBot stacks up against other self-hosted AI assistant platforms:
 
 OpenBot focuses on **one codebase, one gateway**: maximum channels and AI providers, file-based config, and a single CLI for local and production control—no vendor lock-in.
 
+### Charts
+
+**Messaging channels (more = better)**
+
+```mermaid
+xychart-beta
+    title "Messaging channels"
+    x-axis ["OpenBot", "Moltbot", "Botpress", "Rasa"]
+    y-axis "Channels" 0 --> 25
+    bar [22, 7, 10, 2]
+```
+
+**Built-in skills / tools**
+
+```mermaid
+xychart-beta
+    title "Built-in skills or integrations"
+    x-axis ["OpenBot", "Moltbot", "Botpress", "Rasa"]
+    y-axis "Count" 0 --> 200
+    bar [57, 15, 190, 10]
+```
+
+**AI providers (direct model backends)**
+
+```mermaid
+xychart-beta
+    title "AI providers supported"
+    x-axis ["OpenBot", "Moltbot", "Botpress", "Rasa"]
+    y-axis "Providers" 0 --> 30
+    bar [28, 4, 5, 1]
+```
+
+**Share of platforms with native mobile app**
+
+```mermaid
+pie showData
+    title "Native mobile app"
+    "OpenBot" : 1
+    "Moltbot, Botpress, Rasa" : 0
+```
+
+**Skills by category (OpenBot)**
+
+```mermaid
+pie showData
+    title "57 skills by category"
+    "Web" : 8
+    "Files" : 8
+    "Code" : 10
+    "Media" : 7
+    "Info" : 6
+    "Productivity" : 6
+    "Infrastructure" : 7
+    "AI" : 5
+```
+
+> OpenBot leads on **channels** and **AI providers**; Botpress leads on total **integrations** (190+). Rasa is code-first—provider/skill counts are not directly comparable.
+
 ---
 
 ## Quick Start
