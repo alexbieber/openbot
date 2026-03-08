@@ -9,7 +9,7 @@
 **The self-hosted AI agent platform for teams who demand privacy, flexibility, and scale.**
 
 [![GitHub stars](https://img.shields.io/github/stars/alexbieber/openbot?style=social)](https://github.com/alexbieber/openbot)
-[![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Falexbieber%2Fopenbot&title=Visitors&icon=github.svg&iconColor=%23FFFFFF&titleColor=%237B1FA2)](https://github.com/alexbieber/openbot)
+[![visitors](https://visitor-badge.glitch.me/badge?page_id=alexbieber.openbot)](https://github.com/alexbieber/openbot)
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License](https://img.shields.io/badge/License-MIT-8b5cf6)](LICENSE)
 [![Skills](https://img.shields.io/badge/Skills-57-10b981)](skills/)
