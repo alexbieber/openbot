@@ -8,6 +8,8 @@
 
 **The self-hosted AI agent platform for teams who demand privacy, flexibility, and scale.**
 
+[![GitHub stars](https://img.shields.io/github/stars/openbot/openbot?style=social)](https://github.com/openbot/openbot)
+[![Visitors](https://hits.seeyoufarm.com/api/count/incr/badge.svg?url=https%3A%2F%2Fgithub.com%2Fopenbot%2Fopenbot&title=Visitors&icon=github.svg&iconColor=%23FFFFFF&titleColor=%237B1FA2)](https://github.com/openbot/openbot)
 [![Node.js](https://img.shields.io/badge/Node.js-20%2B-339933?logo=node.js&logoColor=white)](https://nodejs.org)
 [![License](https://img.shields.io/badge/License-MIT-8b5cf6)](LICENSE)
 [![Skills](https://img.shields.io/badge/Skills-57-10b981)](skills/)
@@ -27,6 +29,12 @@
 [Contributing](CONTRIBUTING.md)
 
 </div>
+
+---
+
+## In 30 seconds
+
+**One stack.** Clone → add one API key to `.env` → `npm start` → chat in the web UI or over Telegram/Discord/Slack. All data stays on your machine. Switch AI providers (Anthropic, OpenAI, Ollama, …) or add agents and skills with a single config file. [Quick Start](#-quick-start) below.
 
 ---
 
@@ -122,7 +130,7 @@ pie showData
 
 ## Quick Start
 
-**Requirements:** Node.js 20+
+**Prerequisites:** Node.js 20+, npm, and one AI provider API key ([get one](https://console.anthropic.com) — free tiers available).
 
 ```bash
 # Clone and install
@@ -139,7 +147,7 @@ npm start
 
 Open **http://localhost:18789** for the web dashboard. You’re ready.
 
-To run the test suite: start the gateway (`npm start`), then in another terminal run `npm test` (or `node test-suite.mjs`).
+**Run tests:** Start the gateway (`npm start`), then in another terminal: `npm test`.
 
 <details>
 <summary><b>Get an API key</b></summary>
@@ -156,6 +164,12 @@ To run the test suite: start the gateway (`npm start`), then in another terminal
 Set in `.env`: `ANTHROPIC_API_KEY=sk-ant-...` (or the provider you use).
 
 </details>
+
+---
+
+## Screenshots
+
+The web dashboard (`http://localhost:18789`) includes a dark, Grok-style UI: collapsible sidebar (Chat, Sessions, Memory, Agents, Skills, Channels, Cron, Logs, Config), centered chat with streaming replies, and agent/model selector. Run `npm start` and open the URL to see it.
 
 ---
 
@@ -330,6 +344,8 @@ Set the gateway URL in the app (e.g. `http://your-server:18789`).
 <div align="center">
 
 **OpenBot** — *Your infrastructure. Your AI. Your rules.*
+
+If OpenBot is useful to you, consider giving the repo a **⭐ star** — it helps others discover it.
 
 Built with Node.js · Express · Anthropic SDK · OpenAI SDK · Discord.js · node-telegram-bot-api · whatsapp-web.js · Expo
 
