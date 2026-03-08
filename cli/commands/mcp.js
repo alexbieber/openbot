@@ -12,7 +12,7 @@
  */
 
 import chalk from 'chalk';
-import { loadOpenBotConfig, writeOpenBotConfig } from '../config/openbot-config.js';
+import { loadOpenBotConfig, writeOpenBotConfig } from '../../config/openbot-config.js';
 
 const POPULAR_SERVERS = [
   { name: 'filesystem', package: '@modelcontextprotocol/server-filesystem', desc: 'Read/write local files', env: [] },

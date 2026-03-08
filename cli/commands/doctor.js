@@ -1,32 +1,58 @@
 // doctor.js
-import { existsSync } from 'fs';
+import 'dotenv/config';
+import { existsSync, readFileSync } from 'fs';
 import { join } from 'path';
 
 const CONFIG_PATH = join(process.env.HOME || process.env.USERPROFILE || '/tmp', '.openbot', 'config.json');
 const GATEWAY = 'http://127.0.0.1:18789';
+
+function hasApiKeyFromEnv() {
+  return !!(
+    process.env.ANTHROPIC_API_KEY ||
+    process.env.OPENAI_API_KEY ||
+    process.env.DEEPSEEK_API_KEY ||
+    process.env.OPENROUTER_API_KEY ||
+    process.env.GROQ_API_KEY ||
+    process.env.OLLAMA_URL ||
+    process.env.GEMINI_API_KEY ||
+    process.env.TOGETHER_API_KEY ||
+    process.env.MISTRAL_API_KEY
+  );
+}
+
+function hasApiKeyFromConfig() {
+  if (!existsSync(CONFIG_PATH)) return false;
+  try {
+    const c = JSON.parse(readFileSync(CONFIG_PATH, 'utf-8'));
+    return !!(c.ai?.anthropicApiKey || c.ai?.openaiApiKey || c.ai?.deepseekApiKey || c.ai?.ollamaUrl);
+  } catch {
+    return false;
+  }
+}
 
 export async function doctor() {
   console.log('\nOpenBot Doctor\n');
 
   const checks = [
     {
-      name: 'Node.js version ≥ 22',
+      name: 'Node.js version ≥ 20',
       check: () => {
         const [major] = process.version.replace('v', '').split('.').map(Number);
-        return { ok: major >= 22, detail: `Found: ${process.version}` };
+        return { ok: major >= 20, detail: `Found: ${process.version}` };
       },
     },
     {
       name: 'Config file exists',
-      check: () => ({ ok: existsSync(CONFIG_PATH), detail: CONFIG_PATH }),
+      check: () => ({ ok: existsSync(CONFIG_PATH), detail: existsSync(CONFIG_PATH) ? CONFIG_PATH : 'Optional — use .env or run: openbot onboard' }),
     },
     {
       name: 'API key configured',
       check: () => {
-        if (!existsSync(CONFIG_PATH)) return { ok: false, detail: 'Config not found' };
-        const c = JSON.parse(require('fs').readFileSync(CONFIG_PATH, 'utf-8'));
-        const hasKey = c.ai?.anthropicApiKey || c.ai?.openaiApiKey || c.ai?.deepseekApiKey || c.ai?.ollamaUrl;
-        return { ok: !!hasKey, detail: hasKey ? 'Found' : 'Missing — run: openbot onboard' };
+        const fromEnv = hasApiKeyFromEnv();
+        const fromConfig = hasApiKeyFromConfig();
+        const ok = fromEnv || fromConfig;
+        const detail = ok ? (fromEnv && fromConfig ? '.env + config' : fromEnv ? '.env' : 'config file') : 'Missing — add to .env or run: openbot onboard';
+        return { ok, detail };
       },
     },
     {

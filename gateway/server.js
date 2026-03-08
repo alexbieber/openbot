@@ -130,7 +130,7 @@ obsidianSync.startWatcher();
 
 // ── Express REST API ─────────────────────────────────────────────────────────
 const app = express();
-app.use(express.json());
+app.use(express.json({ limit: config.gateway?.bodyLimit || '1mb' }));
 
 // Health check
 app.get('/health', (req, res) => {
@@ -207,7 +207,7 @@ app.get('/setup/status', (req, res) => {
     ready: hasKey,
     provider,
     model: config.model || process.env.OPENBOT_MODEL || null,
-    setupUrl: 'https://github.com/your-repo#quick-start',
+    setupUrl: 'https://github.com/openbot/openbot#quick-start',
     hint: hasKey
       ? `Using ${provider}`
       : 'Add an API key to .env (e.g. ANTHROPIC_API_KEY=sk-ant-...) then restart the gateway.',
@@ -1014,6 +1014,27 @@ async function _startTailscaleServe(port) {
   }
 }
 
-// Graceful shutdown
-process.on('SIGTERM', () => { httpServer.close(); process.exit(0); });
-process.on('SIGINT',  () => { httpServer.close(); process.exit(0); });
+// Graceful shutdown: stop accepting connections, close WebSockets, then exit
+const SHUTDOWN_GRACE_MS = 10000;
+let shuttingDown = false;
+function gracefulShutdown(signal) {
+  if (shuttingDown) return;
+  shuttingDown = true;
+  console.log(`[Gateway] ${signal} received, shutting down…`);
+  httpServer.close(() => { process.exit(0); });
+  for (const [, client] of wsClients) {
+    try { client.ws?.close(1000, 'Server shutting down'); } catch {}
+  }
+  setTimeout(() => { process.exit(1); }, SHUTDOWN_GRACE_MS);
+}
+process.on('SIGTERM', () => gracefulShutdown('SIGTERM'));
+process.on('SIGINT', () => gracefulShutdown('SIGINT'));
+
+// Production: log unhandled errors; exit on uncaughtException to avoid undefined state
+process.on('uncaughtException', (err) => {
+  console.error('[Gateway] uncaughtException:', err?.message || err);
+  process.exit(1);
+});
+process.on('unhandledRejection', (reason, promise) => {
+  console.error('[Gateway] unhandledRejection:', reason);
+});

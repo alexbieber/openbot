@@ -218,15 +218,7 @@ program.command('configure').description('Interactive config editor').action(asy
   await onboard({ configure: true });
 });
 
-// ── Security ──────────────────────────────────────────────────────────────────
-const secCmd = program.command('security').description('Security audit and management');
-secCmd.command('audit')
-  .option('--deep', 'Deep scan including skill code analysis')
-  .option('--fix', 'Auto-fix known issues')
-  .action(async opts => {
-    const { doctor } = await import('./commands/doctor.js');
-    await doctor({ security: true, ...opts });
-  });
+// ── Security (registered later via registerSecurityCommands) ──────────────────
 
 // ── Doctor ────────────────────────────────────────────────────────────────────
 program.command('doctor').description('Diagnose and repair installation issues').action(async () => {

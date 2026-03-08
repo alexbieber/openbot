@@ -22,7 +22,9 @@
 [Features](#-features) •
 [Architecture](#-architecture) •
 [Deployment](#-deployment) •
-[Documentation](#-configuration--documentation)
+[Documentation](#-configuration--documentation) •
+[Security](SECURITY.md) •
+[Contributing](CONTRIBUTING.md)
 
 </div>
 
@@ -136,6 +138,8 @@ npm start
 ```
 
 Open **http://localhost:18789** for the web dashboard. You’re ready.
+
+To run the test suite: start the gateway (`npm start`), then in another terminal run `npm test` (or `node test-suite.mjs`).
 
 <details>
 <summary><b>Get an API key</b></summary>
@@ -266,6 +270,10 @@ openbot daemon start
 ```bash
 docker-compose up -d
 ```
+
+**Security (production):** Do not expose the gateway to the public internet without a reverse proxy (TLS + auth) or firewall. The dashboard and API can read/write config and secrets. See [SECURITY.md](SECURITY.md).
+
+**Production checklist:** Use a process manager (PM2, systemd, or Docker). The gateway supports graceful shutdown (SIGTERM/SIGINT), exposes `GET /health` for load balancers, and logs uncaught errors before exit. Optional: set `NODE_ENV=production` and tune `gateway.bodyLimit` in config if needed.
 
 **Cloudflare Workers:**
 

@@ -11,7 +11,7 @@
     "start": "node gateway/server.js",
     "dev": "node --watch gateway/server.js",
     "onboard": "node cli/index.js onboard",
-    "test": "node --test tests/**/*.test.js",
+    "test": "node test-suite.mjs",
     "lint": "eslint .",
     "deploy:cf": "wrangler deploy",
     "cf:dev": "wrangler dev cloudflare/worker.js --local"
