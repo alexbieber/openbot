@@ -18,6 +18,7 @@
 ---
 
 [Quick Start](#-quick-start) •
+[Compare](#-compare) •
 [Features](#-features) •
 [Architecture](#-architecture) •
 [Deployment](#-deployment) •
@@ -36,6 +37,26 @@
 - **Extensible** — 57 built-in skills (web search, code, files, calendar, email, browser automation, and more). Add custom skills and agents in plain text.
 
 Built for developers and teams who need a production-ready, vendor-neutral AI layer.
+
+---
+
+## Compare
+
+How OpenBot stacks up against other self-hosted AI assistant platforms:
+
+| | **OpenBot** | **Moltbot** | **Botpress** | **Rasa** |
+|---|:---:|:---:|:---:|:---:|
+| **Self-hosted** | ✅ | ✅ | ✅ | ✅ |
+| **Messaging channels** | **22** (Telegram, Discord, Slack, WhatsApp, Signal, iMessage, Teams, Matrix, LINE, …) | 7+ (WhatsApp, Telegram, Discord, Slack, Signal, iMessage, WebChat) | 10+ (Web, WhatsApp, Slack, Teams, Twilio, …) | Web, APIs; add-ons for Slack/WhatsApp |
+| **AI providers** | **28** (Anthropic, OpenAI, OpenRouter, Ollama, Groq, DeepSeek, …) | Multiple (Anthropic, OpenAI, Google, local) | Multiple LLMs | Custom NLU / ML pipelines |
+| **Built-in skills / tools** | **57** (web, code, files, calendar, email, browser, …) | Skills plugin system, configurable | 190+ integrations, visual flows | Custom; code-first |
+| **Web dashboard** | ✅ | ✅ | ✅ (visual builder) | ✅ (Rasa X) |
+| **Mobile app** | ✅ (Expo) | — | — | — |
+| **CLI** | ✅ (`openbot` — doctor, agents, memory, daemon, cron) | ✅ | — | ✅ |
+| **Config** | File-based (`.env`, `openbot.json`, `AGENTS.md`) | File-based (`moltbot.json`) | UI + config | Code / YAML |
+| **License** | MIT | MIT | AGPL / commercial | Apache 2.0 |
+
+OpenBot focuses on **one codebase, one gateway**: maximum channels and AI providers, file-based config, and a single CLI for local and production control—no vendor lock-in.
 
 ---
 
